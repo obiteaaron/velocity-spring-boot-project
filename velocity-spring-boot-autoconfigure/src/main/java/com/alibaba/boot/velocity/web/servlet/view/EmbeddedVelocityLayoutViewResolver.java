@@ -9,11 +9,11 @@ import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
  * <p>
  * Part Source Copied From {@link EmbeddedVelocityViewResolver}
  *
- * @author Phillip Webb
- * @version 1.0.0
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
+ * @author Obite Aaron
+ * @author <a href="mailto:obiteaaron@gmail.com">ObiteAaron</a>
+ * @version 1.0.5
  * @see EmbeddedVelocityViewResolver
- * @since 1.0.0 2016-07-20
+ * @since 1.0.5 2019-12-23
  */
 public class EmbeddedVelocityLayoutViewResolver extends VelocityLayoutViewResolver {
 
@@ -25,7 +25,7 @@ public class EmbeddedVelocityLayoutViewResolver extends VelocityLayoutViewResolv
             if (VelocityLayoutView.class.equals(getViewClass())) {
                 this.logger.info("Using EmbeddedVelocityLayoutToolboxView instead of "
                         + "default VelocityView due to specified toolboxConfigLocation");
-                setViewClass(EmbeddedVelocityLayoutToolboxView.class);
+                setViewClass(EmbeddedVelocityLayoutView.class);
             }
         }
         super.initApplicationContext();
@@ -36,5 +36,4 @@ public class EmbeddedVelocityLayoutViewResolver extends VelocityLayoutViewResolv
         super.setToolboxConfigLocation(toolboxConfigLocation);
         this.toolboxConfigLocation = toolboxConfigLocation;
     }
-
 }

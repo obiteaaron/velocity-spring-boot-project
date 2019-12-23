@@ -19,7 +19,7 @@
 
     <groupId>com.alibaba.boot</groupId>
     <artifactId>velocity-spring-boot-project</artifactId>
-    <version>1.0.4.RELEASE</version>
+    <version>1.0.5-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>

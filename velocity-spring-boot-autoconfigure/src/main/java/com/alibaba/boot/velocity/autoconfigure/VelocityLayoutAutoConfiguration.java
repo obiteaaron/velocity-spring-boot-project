@@ -6,11 +6,12 @@ import com.alibaba.boot.velocity.web.servlet.VelocityLayoutHandlerInterceptor;
 import com.alibaba.boot.velocity.web.servlet.view.EmbeddedVelocityLayoutViewResolver;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.Scope;
+import org.apache.velocity.tools.ToolManager;
+import org.apache.velocity.tools.Toolbox;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.boot.autoconfigure.velocity.VelocityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -75,6 +76,28 @@ public class VelocityLayoutAutoConfiguration {
             return new VelocityLayoutWebMvcConfigurer(velocityLayoutProperties);
         }
 
+        @Bean
+        @ConditionalOnProperty("spring.velocity.toolbox-config-location")
+        public ToolManager toolManager(
+                VelocityEngine velocityEngine,
+                VelocityLayoutProperties velocityLayoutProperties) {
+            ToolManager toolManager = new ToolManager();
+            toolManager.setVelocityEngine(velocityEngine);
+            toolManager.configure(velocityLayoutProperties.getToolboxConfigLocation());
+            return toolManager;
+        }
+
+        /**
+         * application is static, so define is singleton.
+         */
+        @Bean
+        @ConditionalOnBean(ToolManager.class)
+        public Toolbox applicationToolbox(
+                ToolManager toolManager) {
+            Toolbox toolbox = toolManager.getToolboxFactory().createToolbox(
+                    Scope.APPLICATION);
+            return toolbox;
+        }
     }
 
 
