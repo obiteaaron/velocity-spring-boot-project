@@ -23,9 +23,6 @@ public class VelocityConstantsTest {
         Assert.assertEquals("layout-enabled", VelocityConstants.LAYOUT_ENABLED_PROPERTY_NAME);
         Assert.assertEquals("spring.velocity.layout-enabled", VelocityConstants.VELOCITY_LAYOUT_ENABLED_PROPERTY_NAME);
 
-        Assert.assertEquals("tools-base-packages", VelocityConstants.TOOLS_BASE_PACKAGES_PROPERTY_NAME);
-        Assert.assertEquals("spring.velocity.tools-base-packages", VelocityConstants.VELOCITY_TOOLS_BASE_PACKAGES_PROPERTY_NAME);
-
         Assert.assertTrue(VelocityConstants.DEFAULT_VELOCITY_LAYOUT_ENABLED_VALUE);
 
         Assert.assertEquals("velocityViewResolver", VelocityConstants.VELOCITY_VIEW_RESOLVER_BEAN_NAME);

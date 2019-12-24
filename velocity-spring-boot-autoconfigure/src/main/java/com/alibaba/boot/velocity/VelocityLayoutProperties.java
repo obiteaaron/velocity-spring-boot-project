@@ -29,6 +29,14 @@ public class VelocityLayoutProperties extends VelocityProperties {
 
     private String screenContentKey = VelocityLayoutView.DEFAULT_SCREEN_CONTENT_KEY;
 
+    private boolean exposeModelAndViewToContext = false;
+
+    private boolean allowModelAndViewToContextOverride = false;
+
+    private boolean exposeModelAndViewToTool = false;
+
+    private boolean allowModelAndViewToToolOverride = false;
+
     /**
      * Get {@link #layoutEnabled}
      *
@@ -141,5 +149,37 @@ public class VelocityLayoutProperties extends VelocityProperties {
         }
         super.setPrefix(actualPrefix);
 
+    }
+
+    public boolean isExposeModelAndViewToContext() {
+        return exposeModelAndViewToContext;
+    }
+
+    public void setExposeModelAndViewToContext(boolean exposeModelAndViewToContext) {
+        this.exposeModelAndViewToContext = exposeModelAndViewToContext;
+    }
+
+    public boolean isAllowModelAndViewToContextOverride() {
+        return allowModelAndViewToContextOverride;
+    }
+
+    public void setAllowModelAndViewToContextOverride(boolean allowModelAndViewToContextOverride) {
+        this.allowModelAndViewToContextOverride = allowModelAndViewToContextOverride;
+    }
+
+    public boolean isExposeModelAndViewToTool() {
+        return exposeModelAndViewToTool;
+    }
+
+    public void setExposeModelAndViewToTool(boolean exposeModelAndViewToTool) {
+        this.exposeModelAndViewToTool = exposeModelAndViewToTool;
+    }
+
+    public boolean isAllowModelAndViewToToolOverride() {
+        return allowModelAndViewToToolOverride;
+    }
+
+    public void setAllowModelAndViewToToolOverride(boolean allowModelAndViewToToolOverride) {
+        this.allowModelAndViewToToolOverride = allowModelAndViewToToolOverride;
     }
 }

@@ -508,9 +508,6 @@ Velocity Tools 配置是以XML文件为载体，XML文件的搜索路径：
 
 ````properties
 spring.velocity.toolbox-config-location=/toolbox/tools.xml
-
-# 可选方式
-# spring.velocity.toolboxConfigLocation=/toolbox/tools.xml
 ````
 
 
@@ -562,10 +559,13 @@ spring.velocity.toolbox-config-location=/toolbox/tools.xml
 ````
 
 
-#### Tools Annotation 配置
+#### Tools 配置
 
-从 1.0.1 版本开始，`velocity-spring-boot-starter` 新增Tools Annotation 配置
-方式，以简化配置方式（相对于 XML 方式）
+~~从 1.0.1 版本开始，`velocity-spring-boot-starter` 新增Tools Annotation 配置
+方式，以简化配置方式（相对于 XML 方式）~~
+
+从 1.0.5-SNAPSHOT开始，废弃使用注解的方式，原注解方式是直接初始化了对象放在Spring中的，只能使用静态对象，无法使用Request和Session级别
+的Toolbox。现还原为Velocity原始写法，每次都创建新的Toolbox，上下文变化会产生新的对象，这更适合于Web的请求环境。
 
 
 ##### 实现 Tool
@@ -606,15 +606,7 @@ Annotation 的方式来申明 Tool 对象，即在实现类上标记
 
 #### 装配 Tool
 
-当 Tool 实现后，仍可以使用传统的 XML 方式来装配，推荐使用类似于 Spring
-`@ComponentScan` 方式将指定 base packages 下的 Tool 实现装配到 Velocity 渲染
-上下文中，配置如下：
-
-````properties
-# Velocity Tools 扫描 base packages，多值配置通过","分割，默认值为 : null
-spring.velocity.tools-base-packages = org.apache.velocity.tools.generic,com.alibaba.boot.velocity.tools
-````
-
+当 Tool 实现后，依然使用传统的 XML 方式来装配。
 
 #### 执行 Tool
 
@@ -633,6 +625,19 @@ spring.velocity.tools-base-packages = org.apache.velocity.tools.generic,com.alib
     ````
     Hello,World
     ````
+### VelocityContext合并SpringMVC ModelAndView
+
+SpringMVC集成Velocity后，在VM模板中需要使用ModelAndView对象的时候，可以按照`$!{modelAndView.model.yourKey}`进行获取，但过于麻烦，一种方式是自己实现一个Toolbox，比如`$!{springModelTool.get("yourKey")}`，但也比较麻烦，如果能够直接获取，将会是比较好的选择。
+
+增加了四个配置项：
+```
+spring.velocity.expose-model-and-view-to-context=true
+spring.velocity.expose-model-and-view-to-tool=true
+spring.velocity.allow-model-and-view-to-context-override=false
+spring.velocity.allow-model-and-view-to-tool-override=false
+```
+四个配置项默认值都是`false`，如果需要可以自行指定，建议`allow-*-override`选项使用`false`，方便程序自动检查出重复的key，避免一些未预料的错误。
+
 
 ## 下游工程
 
