@@ -2,7 +2,6 @@ package com.alibaba.boot.velocity.web.servlet.view;
 
 import org.springframework.boot.web.servlet.view.velocity.EmbeddedVelocityViewResolver;
 import org.springframework.web.servlet.view.AbstractUrlBasedView;
-import org.springframework.web.servlet.view.velocity.VelocityLayoutView;
 import org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver;
 
 /**
@@ -26,24 +25,9 @@ public class EmbeddedVelocityLayoutViewResolver extends VelocityLayoutViewResolv
 
     private boolean allowModelAndViewToToolOverride = false;
 
-    private String toolboxConfigLocation;
-
     @Override
-    protected void initApplicationContext() {
-        if (this.toolboxConfigLocation != null) {
-            if (VelocityLayoutView.class.equals(getViewClass())) {
-                this.logger.info("Using EmbeddedVelocityLayoutToolboxView instead of "
-                        + "default VelocityView due to specified toolboxConfigLocation");
-                setViewClass(EmbeddedVelocityLayoutView.class);
-            }
-        }
-        super.initApplicationContext();
-    }
-
-    @Override
-    public void setToolboxConfigLocation(String toolboxConfigLocation) {
-        super.setToolboxConfigLocation(toolboxConfigLocation);
-        this.toolboxConfigLocation = toolboxConfigLocation;
+    protected Class<?> requiredViewClass() {
+        return EmbeddedVelocityLayoutView.class;
     }
 
     @Override
@@ -86,9 +70,5 @@ public class EmbeddedVelocityLayoutViewResolver extends VelocityLayoutViewResolv
 
     public void setAllowModelAndViewToToolOverride(boolean allowModelAndViewToToolOverride) {
         this.allowModelAndViewToToolOverride = allowModelAndViewToToolOverride;
-    }
-
-    public String getToolboxConfigLocation() {
-        return toolboxConfigLocation;
     }
 }
