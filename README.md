@@ -91,6 +91,7 @@ If your project failed to resolve the dependency, try to add the following repos
 
 
 # Velocity常用配置
+```properties
 spring.velocity.resource-loader-path=classpath:/velocity/templates
 spring.velocity.toolbox-config-location=/velocity/toolbox.xml
 spring.velocity.layout-enabled=true
@@ -101,6 +102,6 @@ spring.velocity.expose-model-and-view-to-tool=true
 spring.velocity.allow-model-and-view-to-tool-override=true
 spring.velocity.properties.eventhandler.referenceinsertion.class=org.apache.velocity.app.event.implement.EscapeHtmlReference
 spring.velocity.properties.eventhandler.escape.html.match=/(^(?!(\\$\\!\\{screen_content\\}).*))(^(?!(\\$\\!tool.ignoreText\\(.+?\\)).*))(^(?!(\\$\\!\\{tool.ignoreText\\(.+?\\)\\}).*))/
-
+```
 
 
